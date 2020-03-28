@@ -14,7 +14,7 @@ Elasticsearch + Kibana
 ## build
 
 ```Console
-$ cd elk
+$ cd ELK
 $ docker-compose build   # build
 $ docker-compose up -d   # run
 $ docker-compose logs -f # check log
