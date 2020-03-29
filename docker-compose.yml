@@ -1,20 +1,31 @@
-version: '3'
+version: "3"
 
-services: 
+services:
   elasticsearch:
     build: elasticsearch
-    environment: 
+    environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xms512m"
-    ports: 
+    ports:
       - 9200:9200
-    volumes: 
+      - 9300:9300
+    volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
-  
+
   kibana:
     build: kibana
-    ports: 
+    ports:
       - 5601:5601
+    volumes:
+      - ./kibana/config:/usr/share/kibana/config
+
+  logstash:
+    build: logstash
+    ports:
+      - 5044:5044
+      - 9600:9600
+    environment:
+      - "LS_JAVA_OPTS=-Xms512m -Xms512m"
     volumes: 
-      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
